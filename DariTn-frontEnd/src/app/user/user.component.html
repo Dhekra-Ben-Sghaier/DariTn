@@ -1,0 +1,55 @@
+<div class="container col-sm-12 section-t8">
+    <div class="row">
+        <div class="container col-md-7">
+            <div class="col-md-12 text-center">
+            <div class="title-single-box">
+
+                <h1 class="title-single">Create your account!</h1>
+            </div>
+        </div>
+            <form (ngSubmit)="userRegister()" class="php-email-form">
+                <div class="col-md-6 mb-3">
+                    <div class="form-group">
+            
+                    <label for="exampleFormControlInput1" class="form-label">Name</label>
+                    <input type="text" class="form-control form-control-lg form-control-a" id="name" name="name" [(ngModel)]="user.username">
+            
+                </div>
+            </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1" class="form-label">Lastname</label>
+                                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="user.lastname">
+                            </div>
+                        </div>
+                            
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="user.email" >
+                            </div>
+                        </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                <label for="exampleFormControlInput1" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="user.phoneNumber">
+                            </div>
+                        </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                <label for="exampleFormControlInput1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password" >
+                            </div>
+                        </div>
+                            
+                
+
+                        
+                    <div class="col-md-12 text-center">  
+                            <button type="submit" class="btn btn-a">Register</button>
+                    </div>
+            </form>
+            
+        </div>
+</div>
+</div>
