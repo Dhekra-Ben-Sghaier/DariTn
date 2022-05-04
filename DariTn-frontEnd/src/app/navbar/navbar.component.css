@@ -557,8 +557,8 @@ a:hover {
 .navbar-default {
   transition: all 0.5s ease-in-out;
   background-color: #ffffff;
-  padding-top: 28px;
-  padding-bottom: 28px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   box-shadow: 1px 2px 15px rgba(100, 100, 100, 0.3);
@@ -1883,36 +1883,4 @@ a:hover {
   100% {
     transform: rotate(360deg);
   }
-}
-/*--------------------------------------------------------------
-# Footer
---------------------------------------------------------------*/
-.section-footer {
-  padding-top: 60px;
-  margin-top: 60px;
-  background: #f3f3f3;
-}
-.section-footer ul {
-  line-height: 2;
-}
-.section-footer .item-list-a i {
-  font-size: 18px;
-  padding-right: 4px;
-  color: #2eca6a;
-}
-.section-footer .widget-a .w-title-a {
-  margin-bottom: 1rem;
-}
-
-footer {
-  background: #f3f3f3;
-  text-align: center;
-  padding: 30px 0;
-}
-footer .copyright-footer {
-  border-top: 1px solid #ddd;
-  padding-top: 20px;
-}
-footer .credits {
-  font-size: 14px;
 }

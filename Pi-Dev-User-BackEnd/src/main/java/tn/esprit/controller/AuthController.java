@@ -2,6 +2,7 @@ package tn.esprit.controller;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
@@ -52,8 +53,15 @@ public class AuthController {
 	  JwtUtils jwtUtils;
 	  @PostMapping("/signin")
 	  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+		  
+		 
+		  System.out.println("Emaiiiil =>>");
+		    System.out.println(loginRequest.getEmail());
+		    String mail = loginRequest.getEmail();
+		   loginRequest.setUsername(userRepository.findByEmail(mail).get(0).getUsername());
 
-	    Authentication authentication = authenticationManager.authenticate(
+		    System.out.println(loginRequest.getUsername());
+		  Authentication authentication = authenticationManager.authenticate(
 	        new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
 	    SecurityContextHolder.getContext().setAuthentication(authentication);

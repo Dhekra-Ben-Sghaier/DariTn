@@ -9,5 +9,5 @@ export class User {
   phoneNumber:any;
   password:any;
   
-  
+  roles:any;
 }
