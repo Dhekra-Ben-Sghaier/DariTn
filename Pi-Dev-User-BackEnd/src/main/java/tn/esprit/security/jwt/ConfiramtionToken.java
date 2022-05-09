@@ -44,7 +44,13 @@ public class ConfiramtionToken {
 			nullable = false,
 			name = "id")
 	private User user;
-	
+	public ConfiramtionToken(String token, LocalDateTime expiresAt,
+			 User user) {
+		 
+		this.token = token;
+		this.expiresAt = expiresAt;
+		this.user = user;
+	}
 	
 	public ConfiramtionToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt,
 			 User user) {

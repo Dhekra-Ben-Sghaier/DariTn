@@ -1,5 +1,6 @@
 package tn.esprit.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -7,9 +8,17 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.bytebuddy.utility.RandomString;
+import tn.esprit.ResetPwd.ForgotPasswordRequest;
 import tn.esprit.email.EmailSender;
 import tn.esprit.entities.Role;
 import tn.esprit.entities.RoleName;
@@ -38,6 +49,8 @@ import tn.esprit.security.jwt.JwtUtils;
 import tn.esprit.services.ConfirmationTokenService;
 import tn.esprit.services.RegService;
 import tn.esprit.services.UserDetailsImpl;
+import tn.esprit.services.UserServiceImpl;
+import tn.esprit.ResetPwd.ResetPassword;
 
 
 
@@ -68,6 +81,13 @@ public class AuthController {
 	  
 	  @Autowired
 	  EmailSender emailSender;
+	  
+	  @Autowired
+	    private JavaMailSender mailSender;
+
+	    
+	    @Autowired
+	    private UserServiceImpl utilisateurService;
 	  
 	  @PostMapping("/signin")
 	  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -214,5 +234,83 @@ public class AuthController {
                 "\n" +
                 "</div></div>";
     }
+	
+	 @PostMapping("/forgot_password")
+	    public ResponseEntity<String> processForgotPassword(@RequestBody ForgotPasswordRequest forgotPasswordRequest,HttpServletRequest request) throws UnsupportedEncodingException, MessagingException{
+	        String email = forgotPasswordRequest.getEmail();
+	        String token = RandomString.make(30).replaceAll("0","o");
+
+	      
+	            utilisateurService.updateResetPasswordToken(token, email);
+	           // String resetPasswordLink = Utility.getSiteURL(request) + "/forgotpssd/reset_password?token=" + token;
+	            String resetPasswordLink = "https://localhost:44307/ForgotPassword" + "/resetPassword?token=" + token;
+
+	            sendEmail(email, resetPasswordLink);
+	             return new ResponseEntity<>("reset password email has been sent successfully", HttpStatus.OK);
+	       
+	     
+	    }
+	 
+	 public void sendEmail(String recipientEmail, String link) throws MessagingException, UnsupportedEncodingException {
+	        MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+	        helper.setFrom("beheddine.akermi@esprit.tn", "Dari support");
+	        helper.setTo(recipientEmail);
+
+	        String subject = "Here's the link to reset your password";
+
+	        String content = "<p>Hello,</p>"
+	                + "<p>You have requested to reset your password.</p>"
+	                + "<p>Click the link below to change your password:</p>"
+	                + "<p><a href=\"" + link + "\">Change my password</a></p>"
+	                + "<br>"
+	                + "<p>Ignore this email if you do remember your password, "
+	                + "or you have not made the request.</p>";
+
+	        helper.setSubject(subject);
+
+	        helper.setText(content, true);
+
+	        mailSender.send(message);
+
+
+	    }
+	 @GetMapping("/reset_password")
+	    public ResponseEntity<tn.esprit.ResetPwd.ResetPassword> showResetPasswordForm(@Param(value = "token") String token) {
+	        User utilisateur = utilisateurService.getByResetPasswordToken(token);
+	       // model.addAttribute("token", token);
+	        ResetPassword resetPassword = new ResetPassword();
+	        if (utilisateur == null) {
+	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+	        }
+	        resetPassword.setToken(token);
+	        //return "reset_password_form";
+	        return new ResponseEntity<>(resetPassword,HttpStatus.OK);
+	    }
+	    @PostMapping("/reset_password")
+	    public ResponseEntity<String> processResetPassword(HttpServletRequest request, @RequestBody ResetPassword resetPassword) {
+	        //String token = request.getParameter("token");
+	        //String password = request.getParameter("password");
+	        String password = resetPassword.getPassword();
+	        User utilisateur = utilisateurService.getByResetPasswordToken(resetPassword.getToken());
+	        //  model.addAttribute("title", "Reset your password");
+
+	        if (utilisateur == null) {
+	           // model.addAttribute("message", "Invalid Token");
+	            return new ResponseEntity<>("user not found",HttpStatus.BAD_REQUEST);
+
+	        } else {
+	            utilisateurService.updatePassword(utilisateur, password);
+
+	          //  model.addAttribute("message", "You have successfully changed your password.");
+	            return new ResponseEntity<>("password updated successfully ",HttpStatus.OK);
+
+	        }
+
+	       // return "reset_password_form";
+
+	    }
 
 }

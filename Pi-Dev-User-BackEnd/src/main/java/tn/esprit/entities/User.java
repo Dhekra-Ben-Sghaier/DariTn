@@ -59,6 +59,8 @@ public class User implements Serializable{
 	@ValidPassword
 	private String password;
 	
+	@Column(name = "reset_password_token")
+    private String resetPasswordToken;
 	private boolean enabled = false;
 	public User(@NotEmpty @Size(min = 3) String username, @NotEmpty @Size(min = 3) String lastName,
 			@NotEmpty @Email(regexp = ".+@.+\\..+", message = "Please provide a valid email address") String email,
