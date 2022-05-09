@@ -59,7 +59,19 @@ public class User implements Serializable{
 	@ValidPassword
 	private String password;
 	
-	//private boolean actived;
+	private boolean enabled = false;
+	public User(@NotEmpty @Size(min = 3) String username, @NotEmpty @Size(min = 3) String lastName,
+			@NotEmpty @Email(regexp = ".+@.+\\..+", message = "Please provide a valid email address") String email,
+			@NotEmpty @Size(min = 8) String phoneNumber, @NotEmpty @Size(min = 6) String password, Set<Role> roles) {
+		
+		this.username = username;
+		this.lastName = lastName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.password = password;
+		this.enabled = false;
+		this.roles = roles;
+	}
 	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable( 
         name = "user_roles", 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../shared/Model/user';
 import { UserService } from '../shared/Service/user-service';
 import { TokenStorageService } from '../shared/Service/token-storage-service'; 
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +19,9 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
-
+  closeResult! : string;
   user:User =new User();
-  constructor(private userService: UserService, private tokenStorage: TokenStorageService) { }
+  constructor(private userService: UserService, private tokenStorage: TokenStorageService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
@@ -53,8 +54,32 @@ export class LoginComponent implements OnInit {
     window.location.reload();
   }
   
+  openResetPasswordDialog(){
+    
+  }
+
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+    }
+    private getDismissReason(reason: any): string {
+      if (reason === ModalDismissReasons.ESC) {
+        return 'by pressing ESC';
+      } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+        return 'by clicking on a backdrop';
+      } else {
+        return  `with: ${reason}`;
+      }
+    }
+    closeForm(){
   
-  
+    }
+  cancel(){
+    this.form = false;
+  }
   /////
  // userLogin(){
    // console.log(this.user);

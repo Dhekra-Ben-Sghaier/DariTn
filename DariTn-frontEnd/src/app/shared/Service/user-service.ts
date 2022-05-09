@@ -47,5 +47,9 @@ export class UserService {
     return this.httpClient.get(AUTH_URL + 'user', { responseType: 'text' });
   }
 
+  resetPassword(email : string){
+    
+  }
+
 
 }

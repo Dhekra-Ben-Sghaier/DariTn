@@ -23,6 +23,11 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileClientComponent } from './profile-client/profile-client.component';
+import { NavUserComponent } from './nav-user/nav-user.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
+
+
 
 @NgModule({
   declarations: [
@@ -38,6 +43,9 @@ import { ProfileClientComponent } from './profile-client/profile-client.componen
     LoginComponent,
     ProfileComponent,
     ProfileClientComponent,
+    NavUserComponent,
+    ResetPasswordComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     BrowserModule,

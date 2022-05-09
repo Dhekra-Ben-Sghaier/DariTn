@@ -205,3 +205,11 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+.material-icons {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.ng-invalid.ng-touched {
+  border-color: #ed3c0d;
+}
