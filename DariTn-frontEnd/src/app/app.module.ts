@@ -57,7 +57,11 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     AppRoutingModule,
     ReactiveFormsModule,
     NgxCaptchaModule, 
-    RecaptchaModule
+    RecaptchaModule,
+   
+ 
+    
+
   ],
   providers: [],
   bootstrap: [AppComponent]

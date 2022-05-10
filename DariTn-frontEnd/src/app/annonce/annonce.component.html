@@ -1,0 +1,125 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+<div class="row">
+  <div class="row">
+      <div class="col-md-12">
+
+
+        <ng-template #content let-c="close" let-d="dismiss" >
+            <form [formGroup]="File"  (ngSubmit)="onSubmit()">
+            <div class="modal-header">
+              <h3 class="modal-title" id="modal-basic-title"></h3>
+              <h3 class="color-a"  >Add Your </h3>
+           
+              <h3 class="color-b" >Ad!</h3>
+              
+              <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+              
+              <ul>
+                <input id="file-input" class="custom-file-input" 
+                type="file" name="image" required="required" placeholder="Product Name" formControlName="image" class="form-control form-control-lg form-control-a"
+                 (change)="upload($event)" />
+                 <tr></tr>
+                 <br>
+                  
+                     <input type="text" name="title" formControlName="title" class="form-control form-control-lg form-control-a"
+                      placeholder="Title *" spellcheck="false" required
+                     
+                      />
+                      <small *ngIf="File.get('title')?.invalid && File.get('title')?.touched" class="text-danger">Title contains 4 caracters at minimum </small>
+
+                      
+                    
+              
+                     
+                     <tr></tr>
+                    <br>
+
+                      <input type="text"  name="governorate" required="required" formControlName="governorate" class="form-control form-control-lg form-control-a" placeholder="Governorate *"
+                   
+                     />
+                     <small *ngIf="File.get('governorate')?.invalid && File.get('governorate')?.touched" class="text-danger">governorate contains 4 caracters at minimum </small>
+
+                     <tr></tr>
+                     <br>
+                     <input type="number" required="required" name="area" formControlName="area" min="1" class="form-control form-control-lg form-control-a" placeholder="Area by m² *"/>
+
+ <tr></tr>
+                     <br>
+                     <input type="text" name="delegation" required="required" formControlName="delegation"  class="form-control form-control-lg form-control-a" placeholder="Delegation *"
+                     />
+                     <small *ngIf="File.get('delegation')?.invalid && File.get('delegation')?.touched" class="text-danger">delegation contains 4 caracters at minimum </small>
+
+                     <tr></tr>
+                     <br>
+                     <textarea name="description" required="required" formControlName="description"  class="form-control form-control-lg form-control-a" placeholder="Description *"></textarea>
+                     <small *ngIf="File.get('description')?.invalid && File.get('description')?.touched" class="text-danger">description contains 4 caracters at minimum </small>
+
+                     <tr></tr>
+                     <br>
+                     <input type="number" name="nbBathRoom" required="required" formControlName="nbBathRoom" min="1"  class="form-control form-control-lg form-control-a" placeholder="Bathroom Number *"/>
+
+                     <tr></tr>
+                     <br>
+                     <input type="number" name="nbRoom" required="required" formControlName="nbRoom"  min="1" class="form-control form-control-lg form-control-a" placeholder="Room Number *"/>
+
+                     <tr></tr>
+                     <br>
+                     <input type="text"  list="transaction" name="transaction" required="required" formControlName="transaction"  class="form-control form-control-lg form-control-a" placeholder="Transaction *"/>
+                     <datalist id="transaction">
+                      <option value="Sale">Sale</option>
+                      <option value="Rent">Rent</option>
+                      </datalist>
+                     
+                     <tr></tr>
+                     <br>
+                   
+                     <input type="number" name="price" required="required" formControlName="price" min="1"   class="form-control form-control-lg form-control-a" placeholder="Price en Euro *" /> 
+                     
+                    </ul>
+                  
+                     
+            </div>
+            <div class="modal-footer">
+              <button type="submit"  [disabled]="File.invalid" class="btn btn-outline-success" (click)="c('Save click')" (click)="showSuccess()">Save</button>
+            </div>
+        </form>
+          </ng-template>
+          <tr></tr>
+          <br>
+         
+          
+          <button type="submit" class="btn btn-a" (click)="open(content)" >Add Annonce</button>
+       
+        <section class="section-property section-t8">
+      
+              <div class="row">
+                  <div class="col-md-12">
+<div class="all-container">
+  <div class="title-box">
+      <h2 class="title-a"></h2>
+<div class="img-box-a" style="position: relative;
+margin-top: -69px;">
+<div [app-file]="sendData" style="display: flex;
+flex-direction: column; align-items: flex-end;" ></div>
+
+</div>
+  </div>
+ 
+  </div>
+</div>
+
+
+              
+          </div>
+
+         
+
+         
+      </section>
+ 
+
+
+    
