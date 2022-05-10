@@ -1,0 +1,115 @@
+<div class="row">
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-round btn-sm btn-success" (click)="open(mymodal1)">Add new user</button>
+            <br><br>
+            <ng-template #mymodal1 let-modal1>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title" >Add new User</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal1.dismiss('Cross click')">
+                        <span aria-hidden="true" (click)="cancel()">×</span>
+                    </button>
+    
+                </div>
+                <div class="center">
+                <form>
+                    <div class="row" class="col-md-6">
+                        <input type="text" placeholder="User Id" [(ngModel)]="user.id"
+                            [ngModelOptions]="{standalone : true}">
+                    </div>
+                    <div class="row" class="col-md-6">
+                        <input type="text" placeholder="User Name" [(ngModel)]="user.username"
+                            [ngModelOptions]="{standalone : true}">
+                    </div>
+                    <div class="row" class="col-md-6">
+                        <input type="text" placeholder="lastName" [(ngModel)]="user.lastname"
+                            [ngModelOptions]="{standalone : true}">
+                    </div>
+                    <div class="row" class="col-md-6">
+                        <input type="email" placeholder="email" [(ngModel)]="user.email"
+                            [ngModelOptions]="{standalone : true}">
+                    </div>
+                    <div class="row" class="col-md-6">
+                        <input type="number" placeholder="phoneNumber" [(ngModel)]="user.phoneNumber"
+                            [ngModelOptions]="{standalone : true}">
+                    </div>
+                    <br>
+                    <button type="button" class="btn btn-success"  (click)="modal1.close('Save click')">Add</button> 
+                    <button type="button" class="btn btn-info" (click)="modal1.close('Save click')" >Cancel</button>
+                </form>
+            </div>
+            </ng-template>
+            <div class="row">
+                <div class="card" class="text-center">
+                    <table class="table">
+                        <thead style="background-color: rgb(192, 183, 183);">
+                            <th>id</th>
+                            <th>username</th>
+                            <th>lastname</th>
+                            <th>email</th>
+                            <th>phoneNumber</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let u of listUsers'>
+                                <td>{{u.id}}</td>
+                                <td>{{u.username}}</td>
+                                <td>{{u.lastname}}</td>
+                                <td>{{u.email}}</td>
+                                <td>{{u.phoneNumber}}</td>
+                                <td><button type="button" class="btn btn-outline-primary"
+                                        (click)="open(mymodal)">edit</button>
+                                    <ng-template #mymodal let-modal>
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="modal-basic-title">Edit</h4>
+                                            <button type="button" class="close" aria-label="Close"
+                                                (click)="modal.dismiss('Cross click')">
+                                                <span aria-hidden="true" (click)="cancel()">×</span>
+    
+                                            </button>
+    
+                                        </div>
+                                        <div>
+                                        <form>
+                                            <div class="modal-body">
+                                                <div class="row" class="col-md-5">
+                                                    <label>Id</label>
+                                                    <input type="number" [(ngModel)]="u.id" [ngModelOptions]="{standalone : true}" />
+                                                </div>
+                                                <div class="row" class="col-md-5">
+                                                    <label>Name</label>
+                                                    <input type="text" [(ngModel)]="u.username" [ngModelOptions]="{standalone : true}" />
+                                                </div>
+                                                <div class="row" class="col-md-5">
+                                                    <label>Lastname</label>
+                                                    <input type="text" [(ngModel)]="u.lastname" [ngModelOptions]="{standalone : true}" />
+                                                </div>
+                                                <div class="row" class="col-md-5">
+                                                    <label>email</label>
+                                                    <input type="email" [(ngModel)]="u.email" [ngModelOptions]="{standalone : true}" />
+                                                </div>
+                                                <div class="row" class="col-md-5">
+                                                    <label>pasword</label>
+                                                    <input type="password" [(ngModel)]="u.pasword" [ngModelOptions]="{standalone : true}" />
+                                                </div>
+                                            </div>
+    
+                                            <div class="modal-footer">
+    
+                                                <button type="button" class="btn btn-info"
+                                                    (click)="modal.close('Save click')" (click)="cancel()">Cancel</button>
+                                                <button class="btn btn-success"(click)="modal.close('Save click')">Validate</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    </ng-template>
+                                    <button type="button" class="btn btn-outline-danger"
+                                        (click)="deleteUser(u.id)">delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

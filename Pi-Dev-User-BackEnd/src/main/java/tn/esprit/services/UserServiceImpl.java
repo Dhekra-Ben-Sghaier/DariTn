@@ -35,13 +35,16 @@ public class UserServiceImpl {
 	
 	
 	 public void updateResetPasswordToken(String token, String email) {
-	        User user = userRepository.findUserByEmail(email).orElse(null);
-	        
+		 System.out.println(email);
+		 
+		 List<User> users = userRepository.findByEmail(email);
+	        User user = users.get(0);
 	            user.setResetPasswordToken(token);
 	            userRepository.save(user);
 	         
 	    }
 	    public User getByResetPasswordToken(String token) {
+	    	System.out.println(userRepository.getUtilisateurByResetPasswordToken(token));
 	        return userRepository.getUtilisateurByResetPasswordToken(token);
 	    }
 	    public void updatePassword(User utilisateur, String newPassword) {
@@ -53,19 +56,26 @@ public class UserServiceImpl {
 	        userRepository.save(utilisateur);
 	    }
 	    
-	    public void deleteUser(User user){
-	        userRepository.delete(user);
+	    public void deleteUser(Long id){
+	        userRepository.deleteById(id);
 	    }
 	    
-	    public User getuserbyId(Long id) {
-	        Optional<User> user = userRepository.findById(id);
-	        return  user.get();
+	    public User getUserbyId(Long id) {
+	        User user = userRepository.findById(id).orElse(null);
+	        return  user;
 	    }
 
+	    public User updateUser(User user) {
+	       
+	    
+	        return  userRepository.save(user);
+	    }
 	    
 	    public List<User> getallUsers() {
 	        return (List<User>) userRepository.findAll();
 	    }
+	    
+	    
 
 	
 }

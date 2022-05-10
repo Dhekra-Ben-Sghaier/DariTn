@@ -14,11 +14,11 @@ const AUTH_URL = 'http://localhost:8084';
   })
 export class UserService {
     
-  readonly API_URL = 'http://localhost:8084';
+  readonly API_URL = 'http://localhost:8084/SpringPiDariTN';
   constructor(private httpClient: HttpClient) { }
 
   getAllUsers() {
-    return this.httpClient.get(`${this.API_URL}/admin/listUsers`)
+    return this.httpClient.get(`${this.API_URL}/api/listUsers`)
   }
   addUser(user : any) {
     return this.httpClient.post(`${this.API_URL}/register`, user)
@@ -26,11 +26,11 @@ export class UserService {
   editUser(user : any){
     return this.httpClient.put(`${this.API_URL}/Mng/updateUser`, user)
   }
-  deleteUSer(id : any){
-    return  this.httpClient.delete(`${this.API_URL}/admin/deleteUser/${id}`)
+  deleteUSer(idUser : any){
+    return  this.httpClient.delete(`${this.API_URL}/api/admin/deleteUser/?idUser=${idUser}`)
   }
   signUp(user : any) {
-    return this.httpClient.post(`${this.API_URL}/SpringPiDariTN/api/auth/signup`, user)
+    return this.httpClient.post(`${this.API_URL}/api/auth/signup`, user)
   }
   //signIn(user : any) {
     //return this.httpClient.post(`${this.API_URL}/SpringPiDariTN/api/auth/signin`, user)

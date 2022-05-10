@@ -154,7 +154,7 @@ public class AuthController {
 		ConfiramtionToken confirmationToken = new ConfiramtionToken(token,LocalDateTime.now(),LocalDateTime.now().plusMinutes(60),user);
 		confirmationTokenService.saveConfirmationToken(confirmationToken);
 		
-		String link = "http://localhost:8084/api/auth/signup/confirm?token=" + token;
+		String link = "http://localhost:8084/SpringPiDariTN/api/auth/confirm?token=" + token;
         emailSender.send(
         		signUpRequest.getEmail(),
                 buildEmail(signUpRequest.getUsername(), link));
@@ -243,7 +243,8 @@ public class AuthController {
 	      
 	            utilisateurService.updateResetPasswordToken(token, email);
 	           // String resetPasswordLink = Utility.getSiteURL(request) + "/forgotpssd/reset_password?token=" + token;
-	            String resetPasswordLink = "https://localhost:44307/ForgotPassword" + "/resetPassword?token=" + token;
+	            
+	            String resetPasswordLink = "http://127.0.0.1:8084/SpringPiDariTN/api/auth" + "/reset_password?token=" + token;
 
 	            sendEmail(email, resetPasswordLink);
 	             return new ResponseEntity<>("reset password email has been sent successfully", HttpStatus.OK);
@@ -255,7 +256,7 @@ public class AuthController {
 	        MimeMessage message = mailSender.createMimeMessage();
 	        MimeMessageHelper helper = new MimeMessageHelper(message);
 
-	        helper.setFrom("beheddine.akermi@esprit.tn", "Dari support");
+	        helper.setFrom("support@Dari.tn", "Dari support");
 	        helper.setTo(recipientEmail);
 
 	        String subject = "Here's the link to reset your password";
@@ -278,27 +279,30 @@ public class AuthController {
 	    }
 	 @GetMapping("/reset_password")
 	    public ResponseEntity<tn.esprit.ResetPwd.ResetPassword> showResetPasswordForm(@Param(value = "token") String token) {
-	        User utilisateur = utilisateurService.getByResetPasswordToken(token);
-	       // model.addAttribute("token", token);
+		 System.out.print("utilisateur herrrreeeee");   
+		 User utilisateur = utilisateurService.getByResetPasswordToken(token);
+	        System.out.print("utilisateur herrrreeeee");
+	        System.out.print(utilisateur);
 	        ResetPassword resetPassword = new ResetPassword();
-	        if (utilisateur == null) {
+	        if (utilisateur == null) { 
 	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 	        }
 	        resetPassword.setToken(token);
-	        //return "reset_password_form";
+	        System.out.print(token);
 	        return new ResponseEntity<>(resetPassword,HttpStatus.OK);
 	    }
-	    @PostMapping("/reset_password")
+	    @PostMapping("/resetPasswordg")
 	    public ResponseEntity<String> processResetPassword(HttpServletRequest request, @RequestBody ResetPassword resetPassword) {
 	        //String token = request.getParameter("token");
 	        //String password = request.getParameter("password");
 	        String password = resetPassword.getPassword();
-	        User utilisateur = utilisateurService.getByResetPasswordToken(resetPassword.getToken());
-	        //  model.addAttribute("title", "Reset your password");
-
+	        User utilisateur = userRepository.findByEmail(resetPassword.getEmail()).get(0);
+	       // User utilisateur = utilisateurService.getByResetPasswordToken(resetPassword.getToken());
+	        
 	        if (utilisateur == null) {
 	           // model.addAttribute("message", "Invalid Token");
+	        	System.out.print("nooo mazel"); 
 	            return new ResponseEntity<>("user not found",HttpStatus.BAD_REQUEST);
 
 	        } else {
@@ -309,7 +313,7 @@ public class AuthController {
 
 	        }
 
-	       // return "reset_password_form";
+	     
 
 	    }
 

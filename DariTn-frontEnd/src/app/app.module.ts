@@ -26,6 +26,7 @@ import { ProfileClientComponent } from './profile-client/profile-client.componen
 import { NavUserComponent } from './nav-user/nav-user.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { CrudUserComponent } from './crud-user/crud-user.component';
 
 
 
@@ -46,6 +47,7 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     NavUserComponent,
     ResetPasswordComponent,
     VerifyEmailComponent,
+    CrudUserComponent,
   ],
   imports: [
     BrowserModule,
