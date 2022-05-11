@@ -1,0 +1,32 @@
+<div style="font-size: 5px ;" class="mt-5">
+  <p-table #contrattable  [value]="abonnements" [responsive]="true"  columnResizeMode="expand"  [tableStyle]="{width: 'max-content'  }" [filterDelay]="0"
+           [globalFilterFields]="['idProduct','price']"
+           [paginator]="true" [rows]="4" [showCurrentPageReport]="true"  [resizableColumns]='true' [autoLayout]="true"  >
+    <ng-template pTemplate="caption">
+      <div class="datatable-header">
+        List Contrats
+        <span class="p-input-icon-left m-lg-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains', contrattable)" placeholder="" />
+                </span>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th field="price"> Nom de client  </th>
+        <th  field="idProduct"> Abonnement  </th>
+
+        <th> </th>
+      </tr>
+
+    </ng-template>
+    <ng-template pTemplate="body" let-ab >
+      <tr>
+        <td>{{ab.user.firstName}} {{ab.user.lastname}}</td>
+        <td>{{ab.typeAbonnement}}</td>
+
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

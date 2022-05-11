@@ -1,0 +1,135 @@
+<div class="card">
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="Nouveau Pub" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()" ></button>
+      <p-dialog [(visible)]="NewDialog" [style]="{width: '580px', height:530}" header="Ajout Pub" [modal]="true" styleClass="p-fluid"   >
+        <ng-template pTemplate="content">
+
+          <div class="row pt-2">
+            <div class="col-6">
+              <label  class="block">Name</label>
+            </div>
+            <div class="col-6">
+              <input  type="text" class="form-control text-black" id="test" aria-describedby="username1-help" pInputText [(ngModel)]="pubs.name"  />
+            </div>
+          </div>
+          <div class="row pt-2">
+            <div class="col-6">
+              <label  class="block">Description</label>
+            </div>
+            <div class="col-6">
+              <input  type="text" class="form-control text-black" id="aa" aria-describedby="username1-help" pInputText [(ngModel)]="pubs.description"  />
+            </div>
+          </div>
+          <div class="row pt-2">
+            <div class="col-6">
+              <label  class="block">Category</label>
+            </div>
+            <div class="col-6">
+              <select [(ngModel)]="pubs.categorytype" id="select">
+                <option value="">--Please choose an option--</option>
+                <option value="MUSIC">MUSIC</option>
+                <option value="FOOD">FOOD</option>
+                <option value="MOVIES">MOVIES</option>
+                <option value="SPORTS">SPORTS</option>
+              </select>
+
+            </div>
+          </div>
+          <div class="row pt-2">
+          <div class="col-6">
+            <label  class="block">Image</label>
+          </div>
+          <div class="d-flex justify-content-center align-items-center mb-4 offset-1 col-6 ">
+            <label for="file" class="uploadIcon  text-center bg-light   rounded-circle"><a > </a></label>
+            <input type="file" id="file" accept="image/*"  (change)="onSelectFile($event)" class="form-control-file" />
+            <img class="rounded-circle  "
+                 [src]="image"
+                 alt=" " width="120" height="120">
+          </div>
+          </div>
+            &nbsp;&nbsp;
+          <div class="row">
+            <button class="btn btn-success" label="Ajouter" (click)="save()"> Ajouter </button>
+          </div>
+        </ng-template></p-dialog>
+    </ng-template>
+  </p-toolbar>
+  <div style="font-size: 5px ;">
+    <p-table #pubtable  [value]="publicite" [responsive]="true"  columnResizeMode="expand"  [tableStyle]="{width: 'max-content'  }" [filterDelay]="0" [globalFilterFields]="['category']"
+             [paginator]="true" [rows]="4" [showCurrentPageReport]="true"  [resizableColumns]='true' [autoLayout]="true"  >
+      <ng-template pTemplate="caption">
+        <div class="datatable-header">
+          List Pub
+          <span class="p-input-icon-left m-lg-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains', pubtable)" placeholder="" />
+                </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr> <th field="image"> Image </th>
+          <th field="name"> NAME  </th>
+          <th  field="description"> Description  </th>
+          <th  field="category"> Category  </th>
+
+
+          <th> </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-pub >
+        <tr>
+          <td>   <img [src]="getImage(pub)"  alt="image" class="rounded" height="150" width="150"></td>
+          <td>{{pub.name}}</td>
+          <td>{{pub.description}}</td>
+          <td>{{pub.categorytype}}</td>
+
+          <td>
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openDialog(pub)"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="Ondelete(pub.id)"></button>
+            <p-dialog [(visible)]="productDialog" [style]="{width: '500px'}" header="GC Details" [modal]="true" styleClass="p-fluid"   >
+              <ng-template pTemplate="content">
+                <div class="row pt-2">
+                  <div class="col-6">
+                    <label  class="block">Name</label>
+                  </div>
+                  <div class="col-6">
+                    <input class="form-control text-black" id="username19" type="text" aria-describedby="username1-help" pInputText [(ngModel)]="pubs.name" />
+                  </div>
+                </div>
+                <div class="row pt-2">
+                  <div class="col-6">
+                    <label  class="block">Description</label>
+                  </div>
+                  <div class="col-6">
+                    <input  type="text" class="form-control text-black" id="aabb" aria-describedby="username1-help" pInputText [(ngModel)]="pubs.description"  />
+                  </div>
+                </div>
+                <div class="row pt-2">
+                  <div class="col-6">
+                    <label  class="block">Category</label>
+                  </div>
+                  <div class="col-6">
+                    <select [(ngModel)]="pubs.categorytype" >
+                      <option value="">--Please choose an option--</option>
+                      <option value="MUSIC">MUSIC</option>
+                      <option value="FOOD">FOOD</option>
+                      <option value="MOVIES">MOVIES</option>
+                      <option value="SPORTS">SPORTS</option>
+                    </select>
+
+                  </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;
+                <div class="row pt-2">
+                  <p-button label="modifier" (click)="editpub(pubs)"></p-button>
+                </div>
+              </ng-template></p-dialog>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+

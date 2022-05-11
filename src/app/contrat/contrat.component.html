@@ -1,0 +1,185 @@
+<div class="card py-5">
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="Nouveau Pub" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()" ></button>
+      <p-dialog [(visible)]="NewDialog" [style]="{width: '580px', height:530}" header="Ajout Pub" [modal]="true" styleClass="p-fluid"   >
+        <ng-template pTemplate="content">
+          <div class="row pt-2">
+            <div class="col-6">
+              <label  class="block">Type Contrat</label>
+            </div>
+            <div class="col-6">
+              <select [(ngModel)]="contrats.contractType" id="select">
+                <option value="">--Please choose an option--</option>
+                <option value="VENTE">VENTE</option>
+                <option value="LOUER">LOUER</option>
+                <option value="GARANT">GARANT</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row pt-2">
+            <div class="col-6">
+              <label  class="block">ID product</label>
+            </div>
+            <div class="col-6">
+              <input class="form-control text-black"  type="text" aria-describedby="username1-help" pInputText [(ngModel)]="contrats.idProduct" />
+            </div>
+          </div>
+          <div class="row pt-2">
+            <div class="col-6">
+              <label  class="block">Price</label>
+            </div>
+            <div class="col-6">
+              <input class="form-control text-black"  type="text" aria-describedby="username1-help" pInputText [(ngModel)]="contrats.price" />
+            </div>
+          </div>
+          <div class="row pt-2">
+            <div class="col-6">
+              <label  class="block">Date Contrat</label>
+            </div>
+            <div class="col-6">
+              <input class="form-control text-black"  type="date" aria-describedby="username1-help" pInputText [(ngModel)]="contrats.dateContrat" />
+            </div>
+          </div>
+          <div class="row pt-2">
+            <div class="col-6">
+              <label  class="block">Date Star</label>
+            </div>
+            <div class="col-6">
+              <input class="form-control text-black"  type="date" aria-describedby="username1-help" pInputText [(ngModel)]="contrats.dateStart" />
+            </div>
+          </div>
+          <div class="row pt-2">
+            <div class="col-6">
+              <label  class="block">Date End</label>
+            </div>
+            <div class="col-6">
+              <input class="form-control text-black"  type="date" aria-describedby="username1-help" pInputText [(ngModel)]="contrats.dateEnd" />
+            </div>
+          </div>
+          <div  class="row pt-2">
+            <div class="col-6">
+              <label class="block">
+                Username
+              </label>
+            </div>
+            <div class="col-6">
+              <select [(ngModel)]="user" name="status" placeholder="select"  class="form-select">
+                <option *ngFor="let u of users" [ngValue]="u">{{u.firstName}}</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <button class="btn btn-success" label="Ajouter" (click)="save()"> Ajouter </button>
+          </div>
+        </ng-template></p-dialog>
+    </ng-template>
+  </p-toolbar>
+  <div style="font-size: 5px ;">
+    <p-table #contrattable  [value]="contrat" [responsive]="true"  columnResizeMode="expand"  [tableStyle]="{width: 'max-content'  }" [filterDelay]="0"
+             [globalFilterFields]="['type','idProduct','price','date','start','end','username']"
+             [paginator]="true" [rows]="4" [showCurrentPageReport]="true"  [resizableColumns]='true' [autoLayout]="true"  >
+      <ng-template pTemplate="caption">
+        <div class="datatable-header">
+          List Contrats
+          <span class="p-input-icon-left m-lg-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains', contrattable)" placeholder="" />
+                </span>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th field="type"> Type Contrat  </th>
+          <th  field="idProduct"> idProduct  </th>
+          <th  field="price"> Price  </th>
+          <th  field="date"> Date Contrat </th>
+          <th  field="start"> Date start  </th>
+          <th  field="end"> Date end  </th>
+          <th  field="username"> Username  </th>
+
+          <th> </th>
+        </tr>
+
+      </ng-template>
+      <ng-template pTemplate="body" let-con >
+        <tr>
+          <td>{{con.contractType}}</td>
+          <td>{{con.idProduct}}</td>
+          <td>{{con.price}}</td>
+          <td>{{con.dateContrat  | date :'longDate'}}</td>
+          <td>{{con.dateStart | date :'longDate'}}</td>
+          <td>{{con.dateEnd | date :'longDate'}}</td>
+          <td>{{con.user.firstName}}</td>
+
+          <td>
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="openDialog(con)"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="Ondelete(con.id)"></button>
+            <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="GC Details" [modal]="true" styleClass="p-fluid"   >
+              <ng-template pTemplate="content">
+                <div class="row pt-2">
+                  <div class="col-6">
+                    <label  class="block">Type Contrat</label>
+                  </div>
+                  <div class="col-6">
+                    <input class="form-control text-black"  type="text" aria-describedby="username1-help" pInputText [(ngModel)]="contrats.contractType" />
+                  </div>
+                </div>
+                <div class="row pt-2">
+                  <div class="col-6">
+                    <label  class="block">ID product</label>
+                  </div>
+                  <div class="col-6">
+                    <input class="form-control text-black"  type="text" aria-describedby="username1-help" pInputText [(ngModel)]="contrats.idProduct" />
+                  </div>
+                </div>
+                <div class="row pt-2">
+                  <div class="col-6">
+                    <label  class="block">Price</label>
+                  </div>
+                  <div class="col-6">
+                    <input class="form-control text-black"  type="text" aria-describedby="username1-help" pInputText [(ngModel)]="contrats.price" />
+                  </div>
+                </div>
+                <div class="row pt-2">
+                  <div class="col-6">
+                    <label  class="block">Date Contrat</label>
+                  </div>
+                  <div class="col-6">
+                    <input class="form-control text-black"  type="date" aria-describedby="username1-help" pInputText [(ngModel)]="contrats.dateContrat" />
+                  </div>
+                </div>
+                <div class="row pt-2">
+                  <div class="col-6">
+                    <label  class="block">Date Star</label>
+                  </div>
+                  <div class="col-6">
+                    <input class="form-control text-black"  type="date" aria-describedby="username1-help" pInputText [(ngModel)]="contrats.dateStart" />
+                  </div>
+                </div>
+                <div class="row pt-2">
+                  <div class="col-6">
+                    <label  class="block">Date End</label>
+                  </div>
+                  <div class="col-6">
+                    <input class="form-control text-black"  type="date" aria-describedby="username1-help" pInputText [(ngModel)]="contrats.dateEnd" />
+                  </div>
+                </div>
+
+                <div class="row pt-2">
+                  <p-button label="modifier" (click)="editpub(contrats)"></p-button>
+                </div>
+              </ng-template></p-dialog>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+
+
