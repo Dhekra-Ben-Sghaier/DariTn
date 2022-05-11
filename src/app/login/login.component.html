@@ -1,0 +1,61 @@
+<section class="container section-t8 cont contact" >
+    <div class="container py-5 h-100" >
+      <div class="row d-flex justify-content-center align-items-center h-100  php-email-form" style="background-color: #F5F5F5;">
+        <div class="col col-xl-10">
+          <div class="card" style="border-radius: 1rem; background-color: #F8F8FF ; ">
+            <div class="row g-0">
+              <div class="col-md-6 col-lg-5 d-none d-md-block " >
+               
+                <img src="../assets/img/property-10.jpg"
+                  alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; height: 100%;" />
+              </div>
+              <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                <div class="card-body p-4 p-lg-5 text-black">
+  
+                  <form  *ngIf="!isLoggedIn" name="form" (ngSubmit)="onSubmit()" #f="ngForm" novalidate >
+                    <h1> Sign in!</h1>
+  
+                    <div class="form-outline mb-4">
+                      <input type="email" required [(ngModel)]="form.email" name="email" class="form-control form-control-lg" #email="ngModel"/>
+                      
+                      <label class="form-label" for="email">Email address</label>
+                    </div>
+                    <div class="form-outline mb-4">
+                      <input type="password" required [(ngModel)]="form.password" name="password" class="form-control form-control-lg" #password="ngModel"/>
+                      <label class="form-label" for="password">Password</label>
+                    </div>
+                    <a class="small text-muted" href="#!">Forgot password?</a>
+                    <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? 
+                      <a href="#!" style="color: #393f81;">Register here</a></p>
+  
+                    <div class="container" style="padding-bottom: 16%;">
+                      <div class="row">
+                        <div class="col text-center" >
+                      <button class="btn btn-success btn-block" type="submit">Login</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div  class="alert alert-danger"
+                    role="alert"
+                    *ngIf="f.submitted && isLoginFailed"
+                  >
+                    Login failed: {{ errorMessage }}
+                  </div>
+                </div> 
+                   
+                  </form>
+  
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-success" *ngIf="isLoggedIn">
+        Logged in as {{roles}}.
+      </div>
+    </div>
+  </section>
+<app-footer></app-footer>

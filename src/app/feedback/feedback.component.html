@@ -1,0 +1,29 @@
+<div class="jumbotron py-3">
+    <h1 class="display-4 text-center">FeedBacks</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <app-feedback-form></app-feedback-form>
+    </div>
+    <div class="col-md-6">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>id</th>
+                    <th>Description </th>
+                    <th>Like</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pd of list">
+                    <td (click)="populateForm(pd)">{{pd.feedbackId}}</td>
+                    <td (click)="populateForm(pd)">{{pd.descriptionFeedBack}}</td>
+                    <td (click)="populateForm(pd)">{{pd.likes}}</td>
+                   
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

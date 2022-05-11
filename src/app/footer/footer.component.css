@@ -1,0 +1,244 @@
+
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  font-family: "Poppins", sans-serif;
+  color: #555555;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #000000;
+}
+
+a {
+  color: #000000;
+  text-decoration: none;
+  transition: all 0.5s ease;
+}
+a:hover {
+  color: #2eca6a;
+  text-decoration: none;
+}
+
+.link-two {
+  color: #000000;
+  transition: all 0.5s ease;
+}
+.link-two:hover {
+  text-decoration: underline;
+  color: #000000;
+}
+
+.link-one {
+  color: #000000;
+  transition: all 0.5s ease;
+}
+.link-one:hover {
+  color: #000000;
+  text-decoration: none;
+}
+
+.link-icon {
+  color: #000000;
+  font-weight: 500;
+}
+.link-icon span {
+  font-size: 14px;
+  padding-left: 4px;
+  vertical-align: middle;
+}
+
+.link-a {
+  text-decoration: none;
+  color: #ffffff;
+  text-decoration: none;
+}
+@media (min-width: 768px) {
+  .link-a {
+    font-size: 0.9rem;
+  }
+}
+@media (min-width: 992px) {
+  .link-a {
+    font-size: 1rem;
+  }
+}
+.link-a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+.link-a span {
+  font-size: 18px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+@media (min-width: 768px) {
+  .link-a span {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 992px) {
+  .link-a span {
+    font-size: 18px;
+  }
+}
+
+.text-brand {
+  color: #000000;
+  font-size: 2rem;
+  font-weight: 600;
+}
+@media (max-width: 767px) {
+  .text-brand {
+    font-size: 1.8rem;
+  }
+}
+
+.color-a {
+  text-decoration: none;
+  color: #000000;
+}
+
+.color-b {
+  color: #2eca6a;
+}
+
+.color-d {
+  color: #adadad;
+}
+
+.color-text-a {
+  text-decoration: none;
+  color: #555555;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+
+
+
+
+/*------/ List a /------*/
+.list-a {
+  text-decoration: none;
+  display: inline-block;
+  line-height: 2;
+  padding: 0;
+  list-style: none;
+}
+.list-a li {
+  position: relative;
+  width: 50%;
+  float: left;
+  padding-left: 25px;
+  padding-right: 5px;
+}
+@media (min-width: 992px) {
+  .list-a li {
+    width: 33.333%;
+  }
+}
+.list-a li:before {
+  content: "";
+  width: 10px;
+  height: 2px;
+  position: absolute;
+  background-color: #313131;
+  top: 15px;
+  left: 0;
+}
+
+
+.a {
+  text-decoration: none;
+  color: #2eca6a;
+  font-size: 1.3rem;
+}
+
+
+
+
+/*------/ Title /------*/
+
+
+.title-a {
+  text-decoration: none;
+  font-size: 2.6rem;
+  font-weight: 600;
+}
+
+
+
+
+/*------/ Ul Resect /------*/
+.list-a ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+
+/*------/ Socials /------*/
+.socials-a {
+  text-decoration: none;
+}
+.socials-a .list-inline-item:not(:last-child) {
+  margin-right: 25px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+.section-footer {
+  padding-top: 60px;
+  margin-top: 60px;
+  background: #f3f3f3;
+}
+.section-footer ul {
+  line-height: 2;
+}
+.section-footer .item-list-a i {
+  font-size: 18px;
+  padding-right: 4px;
+  color: #2eca6a;
+}
+.section-footer .widget-a .w-title-a {
+  margin-bottom: 1rem;
+}
+
+footer {
+  background: #f3f3f3;
+  text-align: center;
+  padding: 30px 0;
+}
+footer .copyright-footer {
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+}
+footer .credits {
+  font-size: 14px;
+}

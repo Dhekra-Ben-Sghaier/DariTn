@@ -1,0 +1,84 @@
+<div class="jumbotron py-3">
+    <h1 class="display-4 text-center">Appointements</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <app-visit-form></app-visit-form>
+    </div>
+    <div class="col-md-6">
+        <table class="table"*ngIf="!update">
+            <thead class="thead-light">
+                <tr>
+                    <th>id</th>
+                    <th>Visite Date </th>
+                    <th>Visibility</th>
+                    <th>state</th>
+                    <th>Heure</th>
+                    <th>Attendance</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pd of list">
+                    <td (click)="populateForm(pd)">{{pd.idAppointement}}</td>
+                    <td (click)="populateForm(pd)">{{pd.dateAppointement | date: 'longDate'}}</td>
+                    <td (click)="populateForm(pd)">{{pd.visibility}}</td>
+                    <td (click)="populateForm(pd)">{{pd.state}}</td>
+                    <td (click)="populateForm(pd)">{{pd.heure}}</td>
+                    <td (click)="populateForm(pd)">{{pd.attendance}}</td>
+                    <td>
+                        <button  (click)="onDelete(pd.idAppointement)"><i class="far fa-trash-alt fa-lg text-danger"></i></button>
+                        <button  (click)="onUpdate(pd)">Update</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+
+        <form novalidate autocomplete="off" *ngIf="update">
+            <input type="hidden" name="visitId" />
+            <div >
+                <label>State</label>
+                <input  placeholder="state" 
+                
+                name="state"  [(ngModel)]="visit.state" >
+            </div>
+            <div >
+                <label>Date </label>
+                <input  placeholder="your date" name="date"[(ngModel)]="visit.visitDate"  type="date"
+                >
+            </div>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label>Heure</label>
+                    <input type="text" name="heure"[(ngModel)]="visit.heure" placeholder="Security Code" 
+                       >
+                </div>
+                <div class="col-md-6">
+                    <label>Visibility</label>
+                    <input  [(ngModel)]="visit.visibility" name="visibility"placeholder="your visibility***" 
+                    
+                        required maxlength="5" minlength="5" >
+                </div>
+                <div class="col-md-6">
+                    <label>Attendance</label>
+                    <input  [(ngModel)]="visit.attendance" name="attendance" placeholder="your attendance****" 
+                    
+                         >
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-info btn-lg btn-block" type="submit" (click)="Update(this.visit)" >SUBMIT</button>
+            </div>
+        </form>
+
+
+
+
+
+    </div>
+</div>
