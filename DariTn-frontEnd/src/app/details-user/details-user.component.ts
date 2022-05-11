@@ -1,45 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal , ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../shared/Model/user';
+import { TokenStorageService } from '../shared/Service/token-storage-service';
 import { UserService } from '../shared/Service/user-service';
 
 @Component({
-  selector: 'app-crud-user',
-  templateUrl: './crud-user.component.html',
-  styleUrls: ['./crud-user.component.css']
+  selector: 'app-details-user',
+  templateUrl: './details-user.component.html',
+  styleUrls: ['./details-user.component.css']
 })
-export class CrudUserComponent implements OnInit {
+export class DetailsUserComponent implements OnInit {
 
-  listUsers: any;
+  user:User =new User();
   form : boolean = false;
-  user!: User;
   closeResult!: string;
-  constructor(private userService: UserService,private modalService: NgbModal) { }
+  listUsers: any;
+  constructor(private userService: UserService, private tokenStorage: TokenStorageService,private router: Router,private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.getAllUsers();
-    this.user = {
-      id: null,
-      username: null,
-      lastname: null,
-      email: null,
-      password: null,
-      phoneNumber: null,
-      roles: null
-
-    }
-  }
-  getAllUsers(){
-    this.userService.getAllUsers().subscribe(res => this.listUsers = res)
-  }
-
-  deleteUser(idUser : any){
-    this.userService.deleteUSer(idUser).subscribe(() => this.getAllUsers())
+    if (this.tokenStorage.getToken()) {
+      this.user = this.tokenStorage.getUser();
+   }
   }
 
   updateUser(idUser : any){
     console.log(idUser)
-    this.userService.editUser(idUser).subscribe(() => this.getAllUsers())
+    this.userService.editUser(idUser).subscribe()
   }
   open(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -65,8 +52,6 @@ export class CrudUserComponent implements OnInit {
     cancel(){
       this.form = false;
     }
-
-
 
 
 }

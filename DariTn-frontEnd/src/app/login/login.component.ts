@@ -3,6 +3,7 @@ import { User } from '../shared/Model/user';
 import { UserService } from '../shared/Service/user-service';
 import { TokenStorageService } from '../shared/Service/token-storage-service'; 
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
   roles: string[] = [];
   closeResult! : string;
   user:User =new User();
-  constructor(private userService: UserService, private tokenStorage: TokenStorageService, private modalService: NgbModal) { }
+  
+  constructor(private userService: UserService, private tokenStorage: TokenStorageService, private modalService: NgbModal,private router: Router) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
@@ -41,7 +43,12 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
-        this.reloadPage();
+        if(this.roles[0] === 'ADMIN'){
+          this.reloadPage();
+        } else{
+          this.reloadPageClient();
+        }
+        
       },
       err => {
         this.errorMessage = err.error.message;
@@ -51,9 +58,13 @@ export class LoginComponent implements OnInit {
   }
 
   reloadPage(): void {
-    window.location.reload();
+    //window.location.reload();
+    this.router.navigate(["/crudUser"]);
   }
-  
+reloadPageClient(): void {
+    //window.location.reload();
+    this.router.navigate(["/userDetails"]);
+  }  
   openResetPasswordDialog(){
     
   }

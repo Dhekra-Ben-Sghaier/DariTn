@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import tn.esprit.ResetPwd.ResetPassword;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -235,8 +236,8 @@ public class AuthController {
                 "</div></div>";
     }
 	
-	 @PostMapping("/forgot_password")
-	    public ResponseEntity<String> processForgotPassword(@RequestBody ForgotPasswordRequest forgotPasswordRequest,HttpServletRequest request) throws UnsupportedEncodingException, MessagingException{
+	 @PostMapping("/forgotPassword")
+	    public ResponseEntity<String> processForgotPassword(@RequestBody ForgotPasswordRequest forgotPasswordRequest) throws UnsupportedEncodingException, MessagingException{
 	        String email = forgotPasswordRequest.getEmail();
 	        String token = RandomString.make(30).replaceAll("0","o");
 
@@ -244,15 +245,15 @@ public class AuthController {
 	            utilisateurService.updateResetPasswordToken(token, email);
 	           // String resetPasswordLink = Utility.getSiteURL(request) + "/forgotpssd/reset_password?token=" + token;
 	            
-	            String resetPasswordLink = "http://127.0.0.1:8084/SpringPiDariTN/api/auth" + "/reset_password?token=" + token;
-
-	            sendEmail(email, resetPasswordLink);
+	            //String resetPasswordLink = "http://127.0.0.1:8084/SpringPiDariTN/api/auth" + "/reset_password?token=" + token;
+	            String resetPasswordLink = "http://localhost:4200/resetPwd";
+	            sendEmail(email, resetPasswordLink,token);
 	             return new ResponseEntity<>("reset password email has been sent successfully", HttpStatus.OK);
 	       
 	     
 	    }
 	 
-	 public void sendEmail(String recipientEmail, String link) throws MessagingException, UnsupportedEncodingException {
+	 public void sendEmail(String recipientEmail, String link, String token) throws MessagingException, UnsupportedEncodingException {
 	        MimeMessage message = mailSender.createMimeMessage();
 	        MimeMessageHelper helper = new MimeMessageHelper(message);
 
@@ -265,6 +266,8 @@ public class AuthController {
 	                + "<p>You have requested to reset your password.</p>"
 	                + "<p>Click the link below to change your password:</p>"
 	                + "<p><a href=\"" + link + "\">Change my password</a></p>"
+	                + "<p>The reset code is => :"  + token +"</p>"
+	                 + "<p>Ps! Use the code to reset your password</p>"
 	                + "<br>"
 	                + "<p>Ignore this email if you do remember your password, "
 	                + "or you have not made the request.</p>";
@@ -293,10 +296,16 @@ public class AuthController {
 	        return new ResponseEntity<>(resetPassword,HttpStatus.OK);
 	    }
 	    @PostMapping("/resetPasswordg")
-	    public ResponseEntity<String> processResetPassword(HttpServletRequest request, @RequestBody ResetPassword resetPassword) {
+	    public ResponseEntity<String> processResetPassword(@RequestBody ResetPassword resetPassword) {
+	    	//System.out.print("nooo mazel"+ email); 
+			/*
+			 * ResetPassword resetPassword = new ResetPassword();
+			 * resetPassword.setEmail(email); resetPassword.setPassword(password);
+			 * resetPassword.setToken(token);
+			 */
 	        //String token = request.getParameter("token");
 	        //String password = request.getParameter("password");
-	        String password = resetPassword.getPassword();
+	        String pwd = resetPassword.getPassword();
 	        User utilisateur = userRepository.findByEmail(resetPassword.getEmail()).get(0);
 	       // User utilisateur = utilisateurService.getByResetPasswordToken(resetPassword.getToken());
 	        
@@ -306,7 +315,7 @@ public class AuthController {
 	            return new ResponseEntity<>("user not found",HttpStatus.BAD_REQUEST);
 
 	        } else {
-	            utilisateurService.updatePassword(utilisateur, password);
+	            utilisateurService.updatePassword(utilisateur, pwd);
 
 	          //  model.addAttribute("message", "You have successfully changed your password.");
 	            return new ResponseEntity<>("password updated successfully ",HttpStatus.OK);

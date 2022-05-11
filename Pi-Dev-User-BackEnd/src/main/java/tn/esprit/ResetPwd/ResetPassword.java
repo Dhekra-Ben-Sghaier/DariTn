@@ -19,7 +19,9 @@ import tn.esprit.entities.Role;
 public class ResetPassword {
 
 	
-	private String password;
-    private String token;
+	
+   
     private String email;
+    private String password;
+    private String token;
 }

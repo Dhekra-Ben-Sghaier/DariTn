@@ -24,7 +24,7 @@
                       <input type="password" required [(ngModel)]="form.password" name="password" class="form-control form-control-lg" #password="ngModel"/>
                       <label class="form-label" for="password">Password</label>
                     </div>
-                    <a class="small text-muted" href="#!">Forgot password?</a>
+                    <a class="small text-muted" [routerLink]="['/forgetPwd']" >Forgot password?</a>
                     <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? 
                       <a href="#!" style="color: #393f81;">Register here</a></p>
   
@@ -53,8 +53,8 @@
           </div>
         </div>
       </div>
-      <div class="alert alert-success" *ngIf="isLoggedIn">
-        Logged in as {{roles}}.
+      <div class="alert alert-success" *ngIf="isLoggedIn" [routerLink]="['/crudUser']">
+       <p> Logged in as {{roles}}.</p>
       </div>
     </div>
   </section>

@@ -1,51 +1,49 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../shared/Service/user-service';
-import { ResetPassword} from '../shared/Model/reset-password';
-import { TokenStorageService } from '../shared/Service/token-storage-service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-
-
+import { User } from '../shared/Model/user';
+import { TokenStorageService } from '../shared/Service/token-storage-service';
+import { UserService } from '../shared/Service/user-service';
 
 @Component({
-  selector: 'app-reset-password',
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css']
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.css']
 })
-export class ResetPasswordComponent implements OnInit {
+export class ForgotPasswordComponent implements OnInit {
 
-  reset:ResetPassword  =new ResetPassword();
- 
-  errorMessage = '';
-  closeResult! : string;
   form: any = {
     email: null,
-    password: null,
-    token: null
+   
   };
+
+  errorMessage = '';
+  closeResult! : string;
+  user:User =new User();
   constructor(private userService: UserService, private tokenStorage: TokenStorageService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    
   }
 
   resetPassword(){
 
   }
 
-  onCreateNewPwd(): void {
+  onReset(): void {
+    const { email} = this.form;
+    console.log("LOOOG"+email);
+    this.userService.forgetPassword(email).subscribe(
+      data => {
+        this.tokenStorage.saveToken(data.accessToken);
+        
 
-    const { email, password, token} = this.form;  
-    
-   
-    console.log("the email is:   "+email);
-    console.log("the password is:   "+password);
-    console.log("the token is:   "+token);
-    this.userService.resetPassword(email,password,token).subscribe(data=>{
+       
+        this.reloadPage();
+      },
+      err => {
+        this.errorMessage = err.error.message;
       
-      alert("Successfully User is register?")
-     },error=>alert("Sorry User not updated!"));
-     
+      }
+    );
   }
 
   reloadPage(): void {
@@ -78,5 +76,4 @@ export class ResetPasswordComponent implements OnInit {
   cancel(){
     this.form = false;
   }
-
 }
