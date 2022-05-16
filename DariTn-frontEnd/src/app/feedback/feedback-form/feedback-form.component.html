@@ -1,0 +1,41 @@
+<form novalidate autocomplete="off" [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+    <input type="hidden" name="visitId" />
+    <div class="form-group">
+        <label>description</label>
+        <input class="form-control form-control-lg" placeholder="description" formControlName="descriptionFeedBack"
+            required>
+    </div>
+    <div class="form-group">
+        <div class="row">
+
+            <label>Like </label>
+        </div>
+        <div class="row px-3">
+            <div class="col-6">
+             <label>
+                <input class="form-check-input" type="radio" value="true" formControlName="likes">
+                <span>true</span>
+            </label>
+            </div>
+            <div class="col-6">
+            <label>
+                <input class="form-check-input" type="radio" value="false" formControlName="likes">
+                <span>false</span>
+            </label>
+            </div>
+          
+          
+        </div>
+        
+    </div>
+    <div class="form-group">
+        <label>Appointement</label>
+        <select class="form-select" formControlName="appointment">
+            <option selected>choose appointement</option>
+            <option *ngFor="let l of list" value="{{l.idAppointement}}">{{l.idAppointement}}</option>
+        </select>
+    </div>
+    <div class="row p-4">
+        <button class="btn btn-info btn-lg btn-block" type="submit">SUBMIT</button>
+    </div>
+</form>

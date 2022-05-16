@@ -8,13 +8,13 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const AUTH_URL = 'http://localhost:8084';
+const AUTH_URL = 'http://localhost:8088';
 @Injectable({
     providedIn: 'root'
   })
 export class UserService {
     
-  readonly API_URL = 'http://localhost:8084';
+  readonly API_URL = 'http://localhost:8088';
   constructor(private httpClient: HttpClient) { }
 
   getAllUsers() {

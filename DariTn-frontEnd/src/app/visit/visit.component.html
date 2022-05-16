@@ -1,0 +1,145 @@
+<div class="jumbotron py-3">
+    <h1 class="display-4 text-center">Appointments</h1>
+</div>
+
+<div class="row p-4">
+    <div class="col-md-5">
+        <app-visit-form></app-visit-form>
+    </div>
+    <div class="col-md-7 ">
+        <p-table [value]="list" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>id</th>
+                    <th>Visite Date </th>
+                    <th>Visibility</th>
+                    <th>state</th>
+                    <th>Heure</th>
+                    <th>Attendance</th>
+                    <th colspan="2">Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-pd>
+                <tr>
+                    <td (click)="populateForm(pd)">{{pd.idAppointement}}</td>
+                    <td (click)="populateForm(pd)">{{pd.dateAppointement | date: 'longDate'}}</td>
+                    <td (click)="populateForm(pd)">{{pd.visibility}}</td>
+                    <td (click)="populateForm(pd)">{{pd.state}}</td>
+                    <td (click)="populateForm(pd)">{{pd.heure}}</td>
+                    <td (click)="populateForm(pd)">{{pd.attendance}}</td>
+                    <td  colspan="2">
+                        <button pButton type="button"  icon="pi pi-trash" (click)="onDelete(pd.idAppointement)"></button>
+                        <!-- <button pButton type="button" label="Cancel" icon="pi pi-times"></button> -->
+                        <button class="btn ms-auto btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onUpdate(pd)">Update</button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <!-- <table class="table"*ngIf="!update">
+            <thead class="thead-light">
+                <tr>
+                    <th>id</th>
+                    <th>Visite Date </th>
+                    <th>Visibility</th>
+                    <th>state</th>
+                    <th>Heure</th>
+                    <th>Attendance</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pd of list">
+                    <td (click)="populateForm(pd)">{{pd.idAppointement}}</td>
+                    <td (click)="populateForm(pd)">{{pd.dateAppointement | date: 'longDate'}}</td>
+                    <td (click)="populateForm(pd)">{{pd.visibility}}</td>
+                    <td (click)="populateForm(pd)">{{pd.state}}</td>
+                    <td (click)="populateForm(pd)">{{pd.heure}}</td>
+                    <td (click)="populateForm(pd)">{{pd.attendance}}</td>
+                    <td>
+                        <button  (click)="onDelete(pd.idAppointement)"><i class="far fa-trash-alt fa-lg text-danger"></i></button>
+                        <button  (click)="onUpdate(pd)">Update</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table> -->
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                <div class="modal-body">
+
+
+        <form novalidate autocomplete="off" *ngIf="update">
+            <input type="hidden" name="visitId" />
+            <div  class="row">
+            <div  class="col-6">
+                <label>State</label>
+                </div>
+                <div  class="col-6">
+                <input class="form-input"  class="form-control" placeholder="state" 
+                name="state"  [(ngModel)]="visit.state" >
+            </div>
+            </div>
+            <div class="row  pt-3">
+                <div class="col-6">
+                    <label>Date </label>
+                </div>
+                <div class="col-6">
+                    <input  placeholder="your date"  class="form-control" name="date"[(ngModel)]="visit.visitDate"  type="date"
+                    >
+                </div>
+            </div>
+            <div class="form-row ">
+                <div class="row pt-3">
+
+                    <div class="col-md-6">
+                        <label>Heure</label>
+                    </div>
+                        <div class="col-md-6">
+                        <input type="text"  class="form-control" name="heure"[(ngModel)]="visit.heure" placeholder="Security Code" 
+                           >
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="col-md-6">
+                        <label>Visibility</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input  [(ngModel)]="visit.visibility"  class="form-control" name="visibility"placeholder="your visibility***" 
+                        
+                        required maxlength="5" minlength="5" >
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-md-6">
+                    <label>Attendance</label>
+                </div>
+                    <div class="col-md-6">
+                    <input  [(ngModel)]="visit.attendance"  class="form-control" name="attendance" placeholder="your attendance****" 
+                    
+                         >
+                </div>
+                </div>
+            </div>
+            <div class="row  pt-3">
+                <button class="btn btn-info btn-lg btn-block" type="submit" (click)="Update(this.visit)" >SUBMIT</button>
+            </div>
+        </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    
+  </div>
+
+
+
+    </div>
+</div>
+</div>
+</div>
